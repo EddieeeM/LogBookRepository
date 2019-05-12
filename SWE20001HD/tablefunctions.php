@@ -17,7 +17,6 @@
 	@mysqli_select_db($conn, $dbnm)
 	  or die('Database not available');
 	  
-	return $conn;
   }
   
   //Closing the database after use.
