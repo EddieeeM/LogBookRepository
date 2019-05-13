@@ -4,7 +4,8 @@
   session_start();
   
   //Unset session variables and destroy session.
-  $_SESSION = array();
+  //$_SESSION = array();
+  session_unset();
   session_destroy();
   
   //Redirect to required page.
