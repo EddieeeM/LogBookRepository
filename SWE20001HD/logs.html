@@ -13,17 +13,17 @@
 
 <div class="header">
     <section id="logo">
-        <img src="images/logo.jpg" alt="logo" class="vicroads_logo" /> 
+        <img src="images/logo.jpg" alt="logo" class="vicroads_logo" />
     </section>
 </div>
 
 <div class="row">
     <div class="leftside">
       <!-- Goals for the week can open a text area to list them & have a dropdown to choose the category-->
-      <h2>Goals for the Week:  
+      <h2>Goals for the Week:
         <span>
             <button value="Edit">Edit Goals</button>
-        </span> 
+        </span>
       </h2>
 
       <h3>Parking</h3>
@@ -64,8 +64,8 @@
             <p>Insert Graph Here</p>
         </div>
       <br>
-    
-      <form method="post" action="logs.html">
+
+      <form method="post" action="logadd.php">
       <fieldset>
           <legend>Update Logs</legend>
           </br>
@@ -75,15 +75,20 @@
                   maxlength="25" placeholder="e.g 20/07/2012" />
               </span>
               <span>
+                  <label for="rego">Registration: </label>
+                  <input type="text" name="rego" id="rego"
+                  maxlength="10"/>
+              </span>
+              <span>
                   <label for="Time">Starting Time: </label>
                   <input type="time" name="starttime" id="starttime"/>
               </span>
-  
+
               <span>
                   <label for="Time">End Time: </label>
                   <input type="time" name="endtime" id="endtime" />
               </span>
-  
+
               <p>
                   <label for="DrivingTime">Day or Nightime: </label>
                   <select name="DrivingTime" id="DrivingTime">
@@ -98,40 +103,40 @@
                   <label for="startOdometer">Starting Odometer: </label>
                   <input type="text" name="startOdometer" id="startOdometer"/>
               </span>
-  
+
               <span>
                   <label for="endOdometer">Ending Odometer: </label>
                   <input type="text" name="endOdometer" id="endOdometer" />
               </span>
 
               </p>
-      
+
           <div id="Conditions">
           <span>
               <label for="dry">Dry </label>
-              <input type="checkbox" name="Conditions" id="dry" value="Dry" />
+              <input type="radio" name="weatherConditions" id="dry" value="Dry" />
           </span>
           <span>
               <label for="wet">Wet</label>
-              <input type="checkbox" name="Conditions" id="wet" value="Wet" />
+              <input type="radio" name="weatherConditions" id="wet" value="Wet" />
           </span>
           <span>
               <label for="lighttraffic">Light Traffic</label>
-              <input type="checkbox" name="Conditions" id="lighttraffic" value="Light Traffic" />
+              <input type="radio" name="trafficConditions" id="lighttraffic" value="Light Traffic" />
           </span>
           <span>
               <label for="moderatetraffic">Moderate Traffic</label>
-              <input type="checkbox" name="Conditions" id="moderatetraffic" value="moderate Traffic" />
+              <input type="radio" name="trafficConditions" id="moderatetraffic" value="Moderate Traffic" />
           </span>
           <span>
               <label for="heavytraffic">Heavy Traffic</label>
-              <input type="checkbox" name="Conditions" id="heavytraffic" value="Heavy Traffic" />
+              <input type="radio" name="trafficConditions" id="heavytraffic" value="Heavy Traffic" />
           </span>
           </div>
-          
+
           <button type="submit">Submit</button>
       </br>
-          
+
       </fieldset>
       </form>
 
@@ -209,7 +214,7 @@
 
       <h2>Insert Instructor Comments Here</h2>
 
-      
+
     </div>
 
     <div class="rightside">
