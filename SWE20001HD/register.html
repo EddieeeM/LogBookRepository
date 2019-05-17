@@ -15,13 +15,13 @@
   
 </div>
 
-<form method="post" action="login.html">        <!-- newuser.php -->
+<form method="post" action="registration.php">        <!-- newuser.php -->
 <div class="loginform">
 
     <h2>SIGN UP/REGISTER</h2>
     <p>First Name: <input type = "text" id = "UserFirstname" name = "UserFirstname" placeholder = "E.g. John"/> </p>
     <p>Last Name: <input type = "text" id = "UserLastname" name = "UserLastname" placeholder = "E.g. Smith"/> </p>
-    <p>Age: <input type="number" id="UserAge"/> 
+    <p>Age: <input type="number" id="UserAge" name= "UserAge" /> 
     <span>
         Mobile: <input type="text" id="UserMobile" name="UserMobile" /> 
     </span>
@@ -35,11 +35,13 @@
     <p>Re-Password: <input type="password" id="ConfimUserPwd" name = "ConfirmUserPwd" placeholder="Re-Enter Password"/> </p>
         
 
-    <a href="login.html">
-        <button class="btn-text">SUBMIT</button>
-    </a>
+    <button type="submit" class="btn-text">SUBMIT</button>
 
 </div>
 </form>
+
+  <?php
+    //Add login script.
+  ?>
 </body>
 </html>
