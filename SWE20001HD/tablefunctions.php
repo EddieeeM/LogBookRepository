@@ -136,6 +136,27 @@ function createTableUserDetails() {
 		  return false;
 	  }
 	  mysqli_free_result($result);
-	  $conn->close();
+	  mysqli_close($conn);
+  }
+  
+  function loginScript($user, $pswd) {
+	  $conn = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
+	  $login_query = "SELECT driver_id FROM logbookUsers
+		              WHERE username = '$user' and password = '$pswd'";
+	  $result = mysqli_query($conn, $login_query);
+	  $rowCount = mysqli_num_rows($result);
+	  return $rowCount;
+	  mysqli_free_result($result);
+	  mysqli_close($conn);
+  }
+  
+  function getDriverId($user, $pswd) {
+	  $conn = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
+	  $query = "SELECT driver_id FROM logbookUsers WHERE username = '$user' and password = '$pswd'";
+	  $result = mysqli_query($conn, $query);
+	  $id = mysqli_fetch_row($result);
+	  return $id[0];
+	  mysqli_free_result($result);
+	  mysqli_close($conn);
   }
   ?>
