@@ -7,12 +7,12 @@
 		
 		//Error variables for display messages.
 		//Maybe add Id?
-        $confirm_err = $mobile_err = $date_err = $age_err = $email_err = "";
+        $confirm_err = $mobile_err = $email_err = "";
 		//For registering.
 		$valid = 0;
 		
 		//Data Variables
-		$fname = $_POST["UserFirstname"]; $lname = $_POST["UserLastname"]; $age = $_POST["UserAge"];
+		$fname = $_POST["UserFirstname"]; $lname = $_POST["UserLastname"]; $dob = $_POST["UserAge"];
 		$mobileNum = $_POST["UserMobile"]; $email = $_POST["UserEmail"]; $driver_id = $_POST["UserIdNum"];
 		$username = $_POST["UserName"]; $pswd = $_POST["UserPwd"]; $confirmPswd = $_POST["ConfirmUserPwd"];
 		
@@ -32,14 +32,6 @@
 		else {
 			$mobile_err = "Mobile Number is not of a common format.";
 		}
-		
-		//Age verification
-		/*if(checkdate()) {
-			//TODO
-		}
-		else {
-			$date_err = "This an invalid date format.";
-		}*/
 		
 		//Email validation
 		if(filter_var($email, FILTER_VALIDATE_EMAIL)) {

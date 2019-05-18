@@ -9,6 +9,6 @@
   session_destroy();
   
   //Redirect to required page.
-  header("location: login.php");
+  //header("location: login.php");
   exit;
 ?>
