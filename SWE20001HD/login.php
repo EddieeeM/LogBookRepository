@@ -30,65 +30,74 @@
     </head>
 <body>
 
-<div class="header">
+<div class="modal_container" id = "modal">
+    <div class="modal">
+        <a href="#" class="close">X</a>
+        <span class="modal_heading">
+            LOGIN
+        </span>
+        <form action = "login.php" method="post">
+            <p>Username: </p>
+            <input class="inputLogin" type = "text" id = "UserName" name = "UserName" placeholder = "Username"/>
+            <p>Password: </p>
+            <input class="inputLogin" type = "password" id = "UserPwd" name = "UserPwd" placeholder = "Password"/>
+            <input type = "submit" class = "btnLogin" value = "LOGIN"/>    
+        </form>
+    </div>
+</div>
 
+<div class="header">
+    <!-- Image of the Header, No Content Required -->
 </div>
 
 <div class="loginform">
 
     <img id="loginlogo" src="images/logo.jpg" alt="logo" />
     
-    <h2>LOGIN</h2>
-	<form action="login.php" method="POST">
-      <p>Username: </p>
-          <input type = "text" id = "UserName" name = "UserName" />
-      <p>Password: </p>
-          <input type = "password" id = "UserPwd" name = "UserPwd" />
-        
-</br>
-</br>
+    <button class="login">
+        <a href="#modal" class="loginLink">LOGIN</a>
+    </button>
+    
+    <button class="btn-forpass">
+        <a href="forgotpwd.php" class="forgotpassLink">FORGOT PASSWORD</a>
+    </button>
 
-      <button type="submit" class="btn-text">LOGIN TO PROFILE</button>
-	</form>
-      <a href="forgotpswd.php">
-          <button class="btn-text">FORGOT PASSWORD</button></a>
+    <button class="btn-register">
+        <a href="register.php" class="registerLink">New user? Click here</a>
+    </button>   
+</div>
 
-</br>
-      <a href="registration.php">
-	  <button href="registration.php" class="btn-forpass" >New user? Click here</button>
-	  </a>
-	  
-	  <?php
-		  //Login Script.
-		  require_once("tablefunctions.php");
+<?php
+  //Login Script.
+  require_once("tablefunctions.php");
+  
+  //Variables
+  $driver_id = "";
+  $found = 0;
+  $user = "";
+  $pswd = "";
+  $login_err = $pswd_err = "";
 		  
-		  //Variables
-		  $driver_id = "";
-		  $found = 0;
-		  $user = "";
-		  $pswd = "";
-		  $login_err = $pswd_err = "";
-		  
-		  if(isset($_POST["UserName"]) && isset($_POST["UserPwd"]) && $_POST["UserName"] != "" && $_POST["UserPwd"] != "") {
-			  $user = $_POST["UserName"];
-			  $pswd = $_POST["UserPwd"];
-			  $found = loginScript($user, $pswd);
-			  if($found == 1) {
-				  echo "Successfully logged in.";
-				  $driver_id = getDriverId($user, $pswd);
-				  $_SESSION["loggedin"] = true;
-				  $_SESSION["driverId"] = $driver_id;
-				  //header("location:dashboard.php");
-			  }
-			  else {
-				  echo "<p>Username and password do not match.</p>";
-				  echo "<p>LogIn Failed</p>";
-			  }
-		  }
-		  else {
-			  echo "<p>Please enter a username and password.</p>";
-		  }
-       ?>
+  if(isset($_POST["UserName"]) && isset($_POST["UserPwd"]) && $_POST["UserName"] != "" && $_POST["UserPwd"] != "") {
+	  $user = $_POST["UserName"];
+	  $pswd = $_POST["UserPwd"];
+	  $found = loginScript($user, $pswd);
+	  if($found == 1) {
+		  echo "Successfully logged in.";
+		  $driver_id = getDriverId($user, $pswd);
+		  $_SESSION["loggedin"] = true;
+		  $_SESSION["driverId"] = $driver_id;
+		  //header("location:dashboard.php");
+		}
+    	else {
+			echo "<p>Username and password do not match.</p>";
+	    	echo "<p>LogIn Failed</p>";
+		}
+	}
+	else {
+		echo "<p>Please enter a username and password.</p>";
+	}
+?>
 
 </div>
 
