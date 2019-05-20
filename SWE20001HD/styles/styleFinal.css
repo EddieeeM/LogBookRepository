@@ -107,6 +107,18 @@ form p {
   background: #ddd;
 } */
 
+.btn-text {
+  display: inline-block;
+  height: 40px;
+  width: 100px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  text-decoration: none;
+  background: gray;
+  cursor: pointer;
+}
+
 /*-----------------------Company Logo-----------------------------------------------*/
 .vicroads_logo{
     left: 0;
@@ -134,12 +146,27 @@ form p {
     height: 150px;
     padding: 0px;
   }
-  
+
+ /*--Form Boxes--*/ 
   .loginform {
     border: 3px solid #fff;
     border-radius: 100px;
     width: 500px;
-    height: 500px;
+    height: 590px;
+    margin: 0 auto;
+    position: auto;
+    background: rgba(0, 0, 0, 0.4);
+    text-align: center;
+    margin-top: 30px;
+    padding: 25px;
+    color: white;
+  }
+
+  .forgotpwdform {
+    border: 3px solid #fff;
+    border-radius: 100px;
+    width: 500px;
+    height: 640px;
     margin: 0 auto;
     position: auto;
     background: rgba(0, 0, 0, 0.4);

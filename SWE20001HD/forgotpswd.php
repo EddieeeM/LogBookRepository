@@ -17,27 +17,24 @@
 	  
 	  </div>
 	  
-	  <div class="loginform">
+	  <div class="forgotpwdform">
 	    <img id="loginlogo" src="images/logo.jpg" alt="logo" />
     
         <h2>Reset Password</h2>
 	    <form action="forgotpswd.php" method="POST">
-          <p>Username: </p>
-            <input type = "text" id = "UserName" name = "UserName" />
-          <p>New Password: </p>
-            <input type = "password" id = "UserPwd" name = "UserPwd" />
-		  <p>New Password Confirm: </p>
-			<input type = "password" id = "UserPwdConf" name = "UserPwdConf" />
+        <p><span>Username: 
+          <input type = "text" id = "UserName" name = "UserName" /> </span> </p>
+				<p><span>New Password: 
+          <input type = "password" id = "UserPwd" name = "UserPwd" /> </span> </p>
+				<p><span>New Password Confirm: 
+					<input type = "password" id = "UserPwdConf" name = "UserPwdConf" /> </span> </p>
         
-        </br>
-        </br>
-		
-          <button type="submit" class="btn-text">Change PASSWORD</button>
-	    </form>
-
-        </br>
-        <a href="login.php">
-	    <button href="login.php" class="btn-forpass" >Return to LogIn</button>
+			<input type="submit" class="btn-forpass" value= "CHANGE PASSWORD">
+			
+			</form>
+				
+      <a href="login.php" class="forgotpassLink">
+	    	<button class="btn-forpass" >Return to LogIn</button>
 	    </a>
 		
 		<?php

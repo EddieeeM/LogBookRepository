@@ -49,13 +49,13 @@
     <p>Email: <input type="email" id="UserEmail" name="UserEmail" placeholder="E.g. Someone@somewhere.com"/> </p>
     <p>Licence Number: <input type="text" id="UserIdNum" name="UserIdNum" /> </p>
 
-</br>
     <p>Username: <input type="text" id="UserName" name = "UserName" placeholder="Enter Username"/> </p>
     <p>Password: <input type="password" id="UserPwd" name = "UserPwd" placeholder="Enter Password"/> </p>
-    <p>Re-Password: <input type="password" id="ConfimUserPwd" name = "ConfirmUserPwd" placeholder="Re-Enter Password"/> </p>
+    <p>Re-Password: <input type="password" id="ConfirmUserPwd" name = "ConfirmUserPwd" placeholder="Re-Enter Password"/> </p>
         
 
-    <button type="submit" name="submit" class="btn-text">SUBMIT</button>
+    <button type="submit" class="btn-text">SUBMIT</button>
+	
 	<?php
     //Add login script.
 	if(isset($_POST["UserFirstname"]) && isset($_POST["UserLastname"]) && isset($_POST["UserAge"])

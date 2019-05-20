@@ -1,22 +1,5 @@
 <!--Login and Script -->
 
-<?php
-  session_start();
-  if(!isset($_SESSION["loggedin"])) {
-	  $_SESSION["loggedin"] = false;
-	  $_SESSION["driverId"] = "";
-  }
-  $driverId = $_SESSION["driverId"];
-  $loggedInStatus = $_SESSION["loggedin"];
-  $log = 0;
-  if($loggedInStatus == true) {
-	  //header("location:dashboard.php");
-	  $log = 1;
-  }
-  
-  echo "Log In Status is: " . $log . " the id of the user is: " . $driverId;
-?>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -59,13 +42,30 @@
     </button>
     
     <button class="btn-forpass">
-        <a href="forgotpwd.php" class="forgotpassLink">FORGOT PASSWORD</a>
+        <a href="forgotpswd.php" class="forgotpassLink">FORGOT PASSWORD</a>
     </button>
 
     <button class="btn-register">
-        <a href="register.php" class="registerLink">New user? Click here</a>
+        <a href="registration.php" class="registerLink">New user? Click here</a>
     </button>   
-</div>
+
+<?php
+  session_start();
+  if(!isset($_SESSION["loggedin"])) {
+	  $_SESSION["loggedin"] = false;
+	  $_SESSION["driverId"] = "";
+  }
+  $driverId = $_SESSION["driverId"];
+  $loggedInStatus = $_SESSION["loggedin"];
+  $log = 0;
+  if($loggedInStatus == true) {
+	//   header("location:dashboard.php");
+	  $log = 1;
+  }
+  
+  echo "Log In Status is: " . $log . " the id of the user is: " . $driverId;
+?>
+
 
 <?php
   //Login Script.
@@ -87,7 +87,7 @@
 		  $driver_id = getDriverId($user, $pswd);
 		  $_SESSION["loggedin"] = true;
 		  $_SESSION["driverId"] = $driver_id;
-		  //header("location:dashboard.php");
+		//   header("location:dashboard.php");
 		}
     	else {
 			echo "<p>Username and password do not match.</p>";
