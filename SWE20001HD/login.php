@@ -50,7 +50,7 @@
 
       <button type="submit" class="btn-text">LOGIN TO PROFILE</button>
 	</form>
-      <a href="forgotpwd.html">
+      <a href="forgotpswd.php">
           <button class="btn-text">FORGOT PASSWORD</button></a>
 
 </br>

@@ -2,8 +2,8 @@
 
 <?php
 require_once("settings.php");
-
-//$GLOBALS['host'], $GLOBALS['user'], $GLOBALS['pswd'], $GLOBALS['dbnm']
+//-----------------------------------------------------------------//
+//----------- Database Connection Functions ----------------------//
 
 //Open Database connection and test for existance.
 function openDatabase() {
@@ -22,6 +22,9 @@ function closeDatabase() {
   $conn = new mysqli(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
   $conn->close();
 }
+
+//------------------------------------------------------------------//
+//------------  Table Existance, Creation and Deletion ------------//
 
 //Checking if logbookUsers Already Exists.
 function existsUserDetailsTable() {
@@ -99,7 +102,9 @@ function createTableUserDetails() {
     $conn->close();
   }
 
-/*----------------------------------------------------------------------------------------------*/
+//----------------------------------------------------------------------------------------------//
+//------------------------- Data Display Page Functions ---------------------------------------//
+
 //Function Related to Data Usage
   function timeDiff($firstTime,$lastTime)
   {
@@ -115,6 +120,9 @@ function createTableUserDetails() {
     return $timeDiff;
   }
   
+//----------------------------------------------------------------------------------------------//
+//------------------------ Registration, LogIn & Forgot Pswd Functions ------------------------//
+  
   //Registration into db.
   function enterUserDetails ($fname, $lname, $dob, $gender, $mobile, $email, $id, $user, $pswd) {
 	  $conn = new mysqli(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
@@ -124,6 +132,7 @@ function createTableUserDetails() {
 	  $conn->close();
   }
   
+  //To ensure a username isn't entered more than once into a database.
   function checkUsernameExistance($username) {
 	  $conn = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
 	  $query = "SELECT driver_id FROM logbookUsers WHERE username = '$username'";
@@ -139,6 +148,7 @@ function createTableUserDetails() {
 	  mysqli_close($conn);
   }
   
+  //Allows the user to login into the service if their account exists.
   function loginScript($user, $pswd) {
 	  $conn = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
 	  $login_query = "SELECT driver_id FROM logbookUsers
@@ -150,6 +160,7 @@ function createTableUserDetails() {
 	  mysqli_close($conn);
   }
   
+  //Retrieve the driver id for use in the session variables.
   function getDriverId($user, $pswd) {
 	  $conn = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
 	  $query = "SELECT driver_id FROM logbookUsers WHERE username = '$user' and password = '$pswd'";
@@ -159,4 +170,32 @@ function createTableUserDetails() {
 	  mysqli_free_result($result);
 	  mysqli_close($conn);
   }
+  
+  //----------------------------------------------------------------------------------------------//
+  //-------------------------------- Forgot Password Functions ----------------------------------//
+  
+  //Chscks DB for an account with the 
+  function forgotpswd_profileexists($username) {
+	  $conn = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
+	  $query = "SELECT driver_id FROM logbookUsers WHERE username = '$username'";
+	  $result = mysqli_query($conn, $query);
+	  $row_cnt = mysqli_num_rows($result);
+	  if($row_cnt == 1) {
+		  return true;
+	  }
+	  else {
+		  return false;
+	  }
+	  mysqli_free_result($result);
+	  mysqli_close($conn);
+  }
+  
+  function resetpassword($username, $password) {
+	  $conn = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
+	  $query = "UPDATE logbookUsers SET password = '$password' WHERE username = '$username'";
+	  $result = mysqli_query($conn, $query);
+	  mysqli_close($conn);
+  }
+  
+  //----------------------------------------------------------------------------------------------//
   ?>
