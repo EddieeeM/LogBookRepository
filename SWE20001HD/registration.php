@@ -56,11 +56,7 @@
         
 
     <button type="submit" name="submit" class="btn-text">SUBMIT</button>
-
-</div>
-</form>
-
-  <?php
+	<?php
     //Add login script.
 	if(isset($_POST["UserFirstname"]) && isset($_POST["UserLastname"]) && isset($_POST["UserAge"])
 	  && isset($_POST["UserMobile"]) && isset($_POST["UserEmail"]) && isset($_POST["UserIdNum"])
@@ -135,8 +131,13 @@
 		}
 	}
 	else {
-		echo "<p>Not all data has been entered on the Registration page.</p>";
+		echo "<p>Please enter all data on the Registration page.</p>";
 	}
   ?>
+
+</div>
+</form>
+
+  
 </body>
 </html>
