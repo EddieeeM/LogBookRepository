@@ -86,12 +86,12 @@
 			  //Get Data from users.
 			  require_once("settings.php");
 			  $conn = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
-			  $usergetquery = "SELECT driver_id, fname, lname, dob, email, phone FROM logbookUsers WHERE driver_id = '$user_id'";
+			  $usergetquery = "SELECT driver_id, fname, lname, dob, email, phone FROM logbookUsers WHERE driver_id = $user_id";
 			  $getUserDetails = mysqli_query($conn, $usergetquery);
 			  $usergetResults = mysqli_fetch_row($getUserDetails);
 			  
 			  //Get Data from update.
-			  $getupdatequery = "SELECT * FROM userUpdate WHERE driver_id = '$user_id'";
+			  $getupdatequery = "SELECT * FROM userUpdate WHERE driver_id = $user_id";
 			  $getUpdatedDetails = mysqli_query($conn, $getupdatequery);
 			  $updategetResults = mysqli_fetch_row($getUpdatedDetails);
 			  

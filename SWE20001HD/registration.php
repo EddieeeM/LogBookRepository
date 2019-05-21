@@ -11,7 +11,7 @@
   $loggedInStatus = $_SESSION["loggedin"];
   $log = 0;
   if($loggedInStatus == true) {
-	  header("location:dashboard.php");
+	  //header("location:dashboard.php");
   }
 ?>
 
