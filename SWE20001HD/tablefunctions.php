@@ -90,6 +90,7 @@ function createTableUserDetails() {
     //Want to have user id passed into this function for table name creation.
     $conn = new mysqli(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
     $tableContents = "CREATE TABLE logbookData (
+	  driver_id INT,
       date VARCHAR(10),
       registrationNumber VARCHAR(10),
       startTime TIME,
@@ -121,9 +122,9 @@ function createTableUserDetails() {
   function deleteTables() {
     //Currently only deletes Users Table.
     $conn = new mysqli(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
-    $query = "DROP TABLE logbookUsers";
+    //$query = "DROP TABLE logbookUsers";
 	$query2 = "DROP TABLE logbookData";
-    $conn->query($query);
+    //$conn->query($query);
 	$conn->query($query2);
     $conn->close();
   }
