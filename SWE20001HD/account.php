@@ -1,3 +1,18 @@
+
+<?php
+  //Session Script.
+  session_start();
+  if(!isset($_SESSION["loggedin"])) {
+	  $_SESSION["loggedin"] = false;
+	  $_SESSION["driverId"] = "";
+  }
+  $driverId = $_SESSION["driverId"];
+  $loggedInStatus = $_SESSION["loggedin"];
+  if($loggedInStatus == false) {
+	  header("location:login.php");
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -63,55 +78,72 @@
 
     <fieldset>
         <legend>MY ACCOUNT</legend>
+		    <?php
+			  //PHP Script for displaying the users updated data.
+			  
+			  //Variables
+			  $user_id = $_SESSION["driverId"];
+			  //Get Data from users.
+			  require_once("settings.php");
+			  $conn = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
+			  $usergetquery = "SELECT driver_id, fname, lname, dob, email, phone FROM logbookUsers WHERE driver_id = '$user_id'";
+			  $getUserDetails = mysqli_query($conn, $usergetquery);
+			  $usergetResults = mysqli_fetch_row($getUserDetails);
+			  
+			  //Get Data from update.
+			  $getupdatequery = "SELECT * FROM userUpdate WHERE driver_id = '$user_id'";
+			  $getUpdatedDetails = mysqli_query($conn, $getupdatequery);
+			  $updategetResults = mysqli_fetch_row($getUpdatedDetails);
+			  
+			  //Variables for data
+			  $user_name = $usergetResults[1] . " " . $usergetResults[2]; $user_dob = date("d-m-Y", strtotime($usergetResults[3])); $user_licnum = $usergetResults[0];
+			  $user_contactprefs = $updategetResults[5]; $user_mobile = $usergetResults[5]; $user_email = $usergetResults[4];
+			  $user_address = $updategetResults[1]; $user_suburb = $updategetResults[2]; $user_state = $updategetResults[3];
+			  $user_postcode = $updategetResults[4];
+			  
+			  mysqli_free_result($getUserDetails);
+			  mysqli_free_result($getUpdatedDetails);
+			  mysqli_close($conn);
+			?>
+			
             <label for="learnergivenname">Name: </label>
-            <span>[TestName]</span> 
+            <span><?php echo $user_name; ?></span> 
             &nbsp;
-            <label for="learnerage">Age: </label>
-            <span>[TestAge]</span>
+            <label for="learnerage">D.O.B: </label>
+            <span><?php echo $user_dob; ?></span>
             &nbsp;
             <label for="learnerlicencenum">Licence Number: </label>
-            <span>[TestLicence Num]</span>
+            <span><?php echo $user_licnum; ?></span>
         </br>
             <label for="learnercontactpref">Preferred Contact Details: </label>
-            <span>[TestContactPrefs]</span> 
+            <span><?php echo $user_contactprefs; ?></span> 
             &nbsp;
             <label for="learnerphone">Mobile: </label>
-            <span>[TestName]</span> 
+            <span><?php echo $user_mobile; ?></span> 
             &nbsp;
             <label for="learneremail">Email: </label>
-            <span>[TestName]</span> 
+            <span><?php echo $user_email; ?></span> 
             &nbsp;
         </br>
             <label for="street_address">Address: </label>
-            <span>[TestAddress]</span> 
+            <span><?php echo $user_address; ?></span> 
             &nbsp;
             <label for="suburb">Suburb: </label>
-            <span>[TestSuburb]</span> 
+            <span><?php echo $user_suburb; ?></span> 
             &nbsp;
             <label for="state">State: </label>
-            <span>[TestState]</span> 
+            <span><?php echo $user_state; ?></span> 
             &nbsp;
             <label for="postcode">Postcode: </label>
-            <span>[TestPostcode]</span> 
+            <span><?php echo $user_postcode; ?></span> 
             &nbsp;
     </fieldset>
-<form method="post" action="update.html">
+<form method="post" action="account.php">
         
     </br>    
     <fieldset>
         <legend>Update Personal Details</legend>
         </br>
-            <span>
-                <label for="learnergivenname">Given Name: </label>
-                <input type="text" name="givenname" id="givenname"
-                maxlength="25" placeholder="e.g John" />
-            </span>
-            <span>
-                <label for="learnerfamilyname">Family Name: </label>
-                <input type="text" name="familyname" id="familyname"
-                maxlength="25" placeholder="e.g Smith" />
-            </span>
-
             <p>
                 <label for="learneremail">Email Address: </label>
                 <input type="text" name="email" id="email" placeholder="e.g someone@outlook.com" />
@@ -125,15 +157,15 @@
         <div id="learnercontactpref">
         <span>
             <label for="e_mail">E-Mail </label>
-            <input type="checkbox" name="contactpref" id="e_mail" value="E-Mail" />
+            <input type="checkbox" name="contactpref[]" id="e_mail" value="E-Mail" />
         </span>
         <span>
             <label for="post_mail">Post/Mail </label>
-            <input type="checkbox" name="contactpref" id="post_mail" value="Post Mail" />
+            <input type="checkbox" name="contactpref[]" id="post_mail" value="Post Mail" />
         </span>
         <span>
             <label for="mobile">Mobile Phone</label>
-            <input type="checkbox" name="contactpref" id="mobile" value="Mobile" />
+            <input type="checkbox" name="contactpref[]" id="mobile" value="Mobile" />
         </span>
         </div>
 
@@ -166,6 +198,84 @@
           </p>
 
           <button type="submit">Submit</button>
+		  
+		  <?php
+		    //PHP Script for processing user details and updating them in db.
+			
+			//Variables
+			$id = $_SESSION["driverId"];
+			$update_email = ""; $update_mobile = ""; $update_address = "";
+			$update_suburb = ""; $update_state = ""; $update_postcode = "";
+			$update_contactprefs = "";
+			$valid = 0;
+			
+			$dbconn = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
+			$queryAddRecord = "SELECT * FROM userUpdate WHERE driver_id = $id";
+			$result = mysqli_query($dbconn, $queryAddRecord);
+			$endresult = mysqli_fetch_row($result);
+			if($endresult == 0) {
+				$queryadd = "INSERT INTO userUpdate (driver_id, street_address, suburb, state, postcode, contactprefs) VALUES ('$id', NULL, NULL, NULL, NULL, NULL);";
+				mysqli_query($dbconn, $queryadd);
+			}
+			
+			if(isset($_POST["email"]) && $_POST["email"] != "") {
+				$update_email = $_POST["email"];
+				echo $update_email;
+				$query = "UPDATE logbookUsers SET email = '$update_email' WHERE driver_id = $id";
+				echo $query;
+				mysqli_query($dbconn, $query);
+				$valid++;
+			}
+			
+			if(isset($_POST["phone"]) && $_POST["phone"] != "") {
+				$update_mobile = $_POST["phone"];
+				$query = "UPDATE logbookUsers SET phone = '$update_mobile' WHERE driver_id = $id";
+				mysqli_query($dbconn, $query);
+				$valid++;
+			}
+			
+			if(isset($_POST["street_address"]) && $_POST["street_address"] != "") {
+				$update_address = $_POST["street_address"];
+				$query = "UPDATE userUpdate SET street_address = '$update_address' WHERE driver_id = $id";
+				mysqli_query($dbconn, $query);
+				$valid++;
+			}
+			
+			if(isset($_POST["suburb"]) && $_POST["suburb"] != "") {
+				$update_suburb = $_POST["suburb"];
+				$query = "UPDATE userUpdate SET suburb = '$update_suburb' WHERE driver_id = $id";
+				mysqli_query($dbconn, $query);
+				$valid++;
+			}
+			
+			if(isset($_POST["state"]) && $_POST["state"] != "") {
+				$update_state = $_POST["state"];
+				$query = "UPDATE userUpdate SET state = '$update_state' WHERE driver_id = $id";
+				mysqli_query($dbconn, $query);
+				$valid++;
+			}
+			
+			if(isset($_POST["postcode"]) && $_POST["postcode"]) {
+				$update_postcode = $_POST["postcode"];
+				$query = "UPDATE userUpdate SET postcode = '$update_postcode' WHERE driver_id = $id";
+				mysqli_query($dbconn, $query);
+				$valid++;
+			}
+			
+			if(isset($_POST["contactpref"]) && $_POST["contactpref"] != "") {
+				$update_contactprefs = implode(',', $_POST["contactpref"]);
+				$query = "UPDATE userUpdate SET contactprefs = '" . $update_contactprefs . "' WHERE driver_id = $id";
+				mysqli_query($dbconn, $query);
+				$valid++;
+			}
+			
+			
+			//Reload page
+			/*if($valid > 0) {
+				header("location:account.php");
+			}*/
+		  ?>
+		  
     </fieldset>
 
 </br>
@@ -211,26 +321,26 @@
 
             <p>
                 <label for="instructoremail">Email Address: </label>
-                <input type="text" name="email" id="email" placeholder="e.g someone@outlook.com" />
+                <input type="text" name="iemail" id="email" placeholder="e.g someone@outlook.com" />
             </p>
 
             <p>
                 <label for="instructorphone">Mobile: </label>
-                <input type="tel" name="phone" id="phone" placeholder="0987-654-321" />
+                <input type="tel" name="iphone" id="phone" placeholder="0987-654-321" />
             </p>
     
         <div id="instructorcontactpref">
         <span>
             <label for="e_mail">E-Mail </label>
-            <input type="checkbox" name="contactpref" id="e_mail" value="E-Mail" />
+            <input type="checkbox" name="icontactpref" id="e_mail" value="E-Mail" />
         </span>
         <span>
             <label for="post_mail">Post/Mail </label>
-            <input type="checkbox" name="contactpref" id="post_mail" value="Post Mail" />
+            <input type="checkbox" name="icontactpref" id="post_mail" value="Post Mail" />
         </span>
         <span>
             <label for="mobile">Mobile Phone</label>
-            <input type="checkbox" name="contactpref" id="mobile" value="Mobile" />
+            <input type="checkbox" name="icontactpref" id="mobile" value="Mobile" />
         </span>
         </div>
         <button type="submit">Submit</button>

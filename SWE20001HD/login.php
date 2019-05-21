@@ -1,5 +1,20 @@
 <!--Login and Script -->
 
+<?php
+  session_start();
+  if(!isset($_SESSION["loggedin"])) {
+	  $_SESSION["loggedin"] = false;
+	  $_SESSION["driverId"] = "";
+  }
+  $driverId = $_SESSION["driverId"];
+  $loggedInStatus = $_SESSION["loggedin"];
+  if($loggedInStatus == true) {
+	header("location:dashboard.php");
+  }
+  
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -50,24 +65,6 @@
     </button>   
 
 <?php
-  session_start();
-  if(!isset($_SESSION["loggedin"])) {
-	  $_SESSION["loggedin"] = false;
-	  $_SESSION["driverId"] = "";
-  }
-  $driverId = $_SESSION["driverId"];
-  $loggedInStatus = $_SESSION["loggedin"];
-  $log = 0;
-  if($loggedInStatus == true) {
-	//   header("location:dashboard.php");
-	  $log = 1;
-  }
-  
-  echo "Log In Status is: " . $log . " the id of the user is: " . $driverId;
-?>
-
-
-<?php
   //Login Script.
   require_once("tablefunctions.php");
   
@@ -87,7 +84,7 @@
 		  $driver_id = getDriverId($user, $pswd);
 		  $_SESSION["loggedin"] = true;
 		  $_SESSION["driverId"] = $driver_id;
-		//   header("location:dashboard.php");
+		  header("location:dashboard.php");
 		}
     	else {
 			echo "<p>Username and password do not match.</p>";

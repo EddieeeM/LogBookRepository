@@ -54,6 +54,19 @@ function existsLogDataTable() {
 	$conn->close();
 }
 
+function existsUserDetailsUpdate() {
+	$conn = new mysqli(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
+	$query = "SELECT 1 FROM userUpdate";
+	$existsUpdate = $conn->query($query);
+	if($existsUpdate) {
+		return true;
+	}
+	else {
+		return false;
+	}
+	$conn->close();
+}
+
 //Creation of the User's Profile.
 function createTableUserDetails() {
   $conn = new mysqli(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
@@ -90,6 +103,19 @@ function createTableUserDetails() {
 	  //Not finnished, need creation for each user and add checkbox criteria, etc.
     $conn->query($tableContents);
     $conn->close();
+  }
+  
+  function createUserDetailsUpdate() {
+	  $conn = new mysqli(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
+	  $tableContents = "CREATE TABLE userUpdate (
+	                    driver_id INT,
+						street_address VARCHAR(30),
+						suburb VARCHAR(20),
+						state VARCHAR(20),
+						postcode SMALLINT,
+						contactprefs VARCHAR(20))";
+	  $conn->query($tableContents);
+	  $conn->close();
   }
 
   function deleteTables() {
@@ -174,7 +200,7 @@ function createTableUserDetails() {
   //----------------------------------------------------------------------------------------------//
   //-------------------------------- Forgot Password Functions ----------------------------------//
   
-  //Chscks DB for an account with the 
+  //Checks DB for an account with the 
   function forgotpswd_profileexists($username) {
 	  $conn = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
 	  $query = "SELECT driver_id FROM logbookUsers WHERE username = '$username'";
@@ -198,4 +224,17 @@ function createTableUserDetails() {
   }
   
   //----------------------------------------------------------------------------------------------//
+  //--------------------------------------Account -----------------------------------------------//
+  
+  //Adds a record for the user if not present.
+  function addUpdaterecord($id) {
+	  $conn = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
+	  $query = "SELECT 1 FROM userUpdate WHERE driver_id = $id";
+	  $existsuserrecord = mysqli_query($conn, $query);
+	  $result = mysqli_fetch_row($existsuserrecord);
+	  if($result == 0) {
+		  $queryadd = "INSERT INTO userUpdate (driver_id, street_address, suburb, state, postcode, contactprefs) VALUES ($id, NULL, NULL, NULL, NULL, NULL)";
+		  mysqli_query($conn, $queryadd);
+	  }
+  }
   ?>

@@ -11,11 +11,8 @@
   $loggedInStatus = $_SESSION["loggedin"];
   $log = 0;
   if($loggedInStatus == true) {
-	  //header("location:dashboard.php");
-	  $log = 1;
+	  header("location:dashboard.php");
   }
-  
-  echo "Log In Status is: " . $log . " the id of the user is: " . $driverId;
 ?>
 
 <!DOCTYPE html>
@@ -121,7 +118,7 @@
 			echo "<p>You Have Successfully Registered an Account.</p>";
 			$_SESSION["driverId"] = $driver_id;
 			$_SESSION["loggedin"] = true;
-			//header("location:dashboard.php");
+			header("location:dashboard.php");
 		}
 		else {
 			echo $confirm_err;
