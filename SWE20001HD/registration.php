@@ -56,6 +56,7 @@
         
 
     <button type="submit" name="submit" class="btn-text">SUBMIT</button>
+	<br>
 	<?php
     //Add login script.
 	if(isset($_POST["UserFirstname"]) && isset($_POST["UserLastname"]) && isset($_POST["UserAge"])
@@ -118,10 +119,13 @@
 			if(!existsLogDataTable()) {
 				createTableLogData();
 			}
+			if(!existsUserDetailsUpdate()) {
+				createUserDetailsUpdate();
+			}
 			echo "<p>You Have Successfully Registered an Account.</p>";
 			$_SESSION["driverId"] = $driver_id;
 			$_SESSION["loggedin"] = true;
-			//header("location:dashboard.php");
+			header("location:dashboard.html");
 		}
 		else {
 			echo $confirm_err;

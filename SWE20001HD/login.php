@@ -59,45 +59,48 @@
     </button>
     
     <button class="btn-forpass">
-        <a href="forgotpwd.php" class="forgotpassLink">FORGOT PASSWORD</a>
+        <a href="forgotpswd.php" class="forgotpassLink">FORGOT PASSWORD</a>
     </button>
 
     <button class="btn-register">
-        <a href="register.php" class="registerLink">New user? Click here</a>
+        <a href="registration.php" class="registerLink">New user? Click here</a>
     </button>   
+	
+	<?php
+	  //Login Script.
+	  require_once("tablefunctions.php");
+	  
+	  //Variables
+	  $driver_id = "";
+	  $found = 0;
+	  $user = "";
+	  $pswd = "";
+	  $login_err = $pswd_err = "";
+			  
+	  if(isset($_POST["UserName"]) && isset($_POST["UserPwd"]) && $_POST["UserName"] != "" && $_POST["UserPwd"] != "") {
+		  $user = $_POST["UserName"];
+		  $pswd = $_POST["UserPwd"];
+		  $found = loginScript($user, $pswd);
+		  if($found == 1) {
+			  echo "Successfully logged in.";
+			  $driver_id = getDriverId($user, $pswd);
+			  $_SESSION["loggedin"] = true;
+			  $_SESSION["driverId"] = $driver_id;
+			  header("location:dashboard.html");
+			}
+			else {
+				echo "<p>Username and password do not match.</p>";
+				echo "<p>LogIn Failed</p>";
+			}
+		}
+		else {
+			echo "<p>Please enter a username and password.</p>";
+		}
+	?>
+	
 </div>
 
-<?php
-  //Login Script.
-  require_once("tablefunctions.php");
-  
-  //Variables
-  $driver_id = "";
-  $found = 0;
-  $user = "";
-  $pswd = "";
-  $login_err = $pswd_err = "";
-		  
-  if(isset($_POST["UserName"]) && isset($_POST["UserPwd"]) && $_POST["UserName"] != "" && $_POST["UserPwd"] != "") {
-	  $user = $_POST["UserName"];
-	  $pswd = $_POST["UserPwd"];
-	  $found = loginScript($user, $pswd);
-	  if($found == 1) {
-		  echo "Successfully logged in.";
-		  $driver_id = getDriverId($user, $pswd);
-		  $_SESSION["loggedin"] = true;
-		  $_SESSION["driverId"] = $driver_id;
-		  //header("location:dashboard.php");
-		}
-    	else {
-			echo "<p>Username and password do not match.</p>";
-	    	echo "<p>LogIn Failed</p>";
-		}
-	}
-	else {
-		echo "<p>Please enter a username and password.</p>";
-	}
-?>
+
 
 </div>
 

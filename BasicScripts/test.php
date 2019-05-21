@@ -6,7 +6,7 @@
   
   //createTableUserDetails();
   
-  //deleteTables();
+  deleteTables();
   
   /*if(!existsUserDetailsTable()) {
 	  createTableUserDetails();
@@ -26,10 +26,10 @@
   
   enterUserDetails ('Brock', 'Giller', '1998-04-06', 'M', '0458726915', '101624498@student.swin.edu.au', '1295838262', 'brobro', 'ic3cr3am');*/
   
-  if(checkUsernameExistance('bigbrocky5')) {
+  /*if(checkUsernameExistance('bigbrocky5')) {
 	  echo "Username doesn't exist.";
   }
   else {
 	  echo "Username does exist.";
-  }
+  }*/
 ?>
