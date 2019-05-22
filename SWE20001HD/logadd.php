@@ -1,3 +1,16 @@
+<?php
+  //Session Script.
+  session_start();
+  if(!isset($_SESSION["loggedin"])) {
+	  $_SESSION["loggedin"] = false;
+	  $_SESSION["driverId"] = "";
+  }
+  $driverId = $_SESSION["driverId"];
+  $loggedInStatus = $_SESSION["loggedin"];
+  if($loggedInStatus == false) {
+	  header("location:login.php");
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +23,6 @@
   <link href= "styles/styleFinal.css" rel="stylesheet" />
 </head>
 <body>
-
   <div class="header">
     <section id="logo">
       <img src="images/logo.jpg" alt="logo" class="vicroads_logo" />
@@ -18,61 +30,59 @@
   </div>
   <?php
   //Checks if all inputs have been entered so as no fields get missed.
-  if (isset ($_POST["dateLog"]) && isset ($_POST["rego"]) && isset ($_POST["starttime"]) && isset ($_POST["endtime"]) && isset ($_POST["DrivingTime"]) && isset ($_POST["startOdometer"]) && isset ($_POST["endOdometer"]) && isset ($_POST["weatherConditions"]) && isset ($_POST["trafficConditions"]))
+  if (isset ($_POST["dateLog"]) && isset ($_POST["rego"]) && isset ($_POST["starttime"]) && isset ($_POST["endtime"]) && isset ($_POST["nighttime"]) && isset ($_POST["startOdometer"]) && isset ($_POST["endOdometer"]) && isset ($_POST["weatherConditions"]) && isset ($_POST["trafficConditions"]))
   {
     require ("settings.php");
-
-    $conn = @mysqli_connect($host, $user, $pswd)
-    or die('Failed to connect to server');
-
-    @mysqli_select_db($conn, $dbnm)
-    or die('Database not available');
     require ("tablefunctions.php");
 
-    $exists = mysqli_query($conn, "SELECT * from logbookData");
+    $conn = @mysqli_connect(DB_HOST, DB_USER, DB_PSWD)
+    or die('Failed to connect to server.');
 
-    if($exists == FALSE)
-    {
-      mysqli_query($conn, $create);
-    }
+    @mysqli_select_db($conn, DB_NAME)
+    or die('Database not available');
+
+
+
+    $exists = mysqli_query($conn, "SELECT * from logbookData");
 
     $date = $_POST["dateLog"];
     $rego = $_POST["rego"];
     $stime = $_POST["starttime"];
     $etime = $_POST["endtime"];
+    $ntime = $_POST["nighttime"];
     $sodo = $_POST["startOdometer"];
     $eodo = $_POST["endOdometer"];
     $wconditions = $_POST["weatherConditions"];
     $tconditions = $_POST["trafficConditions"];
-    $triptime = timeDiff($stime,$etime);
-    if($exists == FALSE)
-    {
-      $totaltime = mysqli_query('SELECT SUM(tripTime) FROM logbookData');
-    }
-    else
-    {
-      $totaltime = "";
-    }
+    $triptime = dateDifference($stime,$etime);
 
-
-    $input = "INSERT INTO logbookData (date, registrationNumber, startTime , finishTime, tripTime, totalTime, odometerStart, odometerFinish, weatherCondition, trafficCondition) VALUES ('$date', '$rego', '$stime', '$etime', '$triptime', '$totaltime', '$sodo', '$eodo', '$wconditions', '$tconditions');";
+    $input = "INSERT INTO logbookData (driver_id, date, registrationNumber, startTime , finishTime, tripTime, nightTime, odometerStart, odometerFinish, weatherCondition, trafficCondition) VALUES ('$driverId', '$date', '$rego', '$stime', '$etime', '$triptime', '$ntime', '$sodo', '$eodo', '$wconditions', '$tconditions')";
     $create = createTableLogData();
 
-    mysqli_query($conn, $input);
-    echo "<p>Table Created and data added!</p>";
-    echo "<a href=\"logs.html\">Home</a>";
+    if($exists == FALSE)
+    {
+      mysqli_query($conn, $create);
+      echo "<p>Table created</p>";
+    }
+
+    mysqli_query($conn, $input)
+    or die ("Error in input query");
+    echo "Data added!";
+    echo "";
+    echo "<a href=\"logs.php\">Back to logs</a>";
+    closeDatabase();
   }
   else
   {
     echo "<p>All fields need to be entered!</p>";
-    echo "<a href=\"logs.html\">Try again</a>";
+    echo "<a href=\"logs.php\">Try again</a>";
   }
   ?>
   <div class="navbar">
-    <a href="dashboard.html" >My Dashboard</a>
-    <a href="about.html" >About</a>
-    <a href="account.html" >My Account</a>
-    <a href="logs.html" >My Logs</a>
+    <a href="dashboard.php" >My Dashboard</a>
+    <a href="about.php" >About</a>
+    <a href="account.php" >My Account</a>
+    <a href="logs.php" >My Logs</a>
   </div>
 </body>
 </html>

@@ -90,22 +90,22 @@ function createTableUserDetails() {
     //Want to have user id passed into this function for table name creation.
     $conn = new mysqli(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
     $tableContents = "CREATE TABLE logbookData (
-	  driver_id INT,
+	    driver_id INT,
       date VARCHAR(10),
       registrationNumber VARCHAR(10),
       startTime TIME,
       finishTime TIME,
       tripTime TIME,
-      totalTime TIME,
+      nightTime INT,
       odometerStart INT UNSIGNED,
       odometerFinish INT UNSIGNED,
       weatherCondition VARCHAR(10),
-      trafficCondition VARCHAR(30))"; 
+      trafficCondition VARCHAR(30))";
 	  //Not finnished, need creation for each user and add checkbox criteria, etc.
     $conn->query($tableContents);
     $conn->close();
   }
-  
+
   function createUserDetailsUpdate() {
 	  $conn = new mysqli(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
 	  $tableContents = "CREATE TABLE userUpdate (
@@ -133,23 +133,20 @@ function createTableUserDetails() {
 //------------------------- Data Display Page Functions ---------------------------------------//
 
 //Function Related to Data Usage
-  function timeDiff($firstTime,$lastTime)
-  {
+function dateDifference($date_1 , $date_2 , $differenceFormat = '%h:%m:%s' )
+{
+  $datetime1 = date_create($date_1);
+  $datetime2 = date_create($date_2);
 
-    // convert to unix timestamps
-    $firstTime=strtotime($firstTime);
-    $lastTime=strtotime($lastTime);
+  $interval = date_diff($datetime1, $datetime2);
 
-    // perform subtraction to get the difference (in seconds) between times
-    $timeDiff=$lastTime-$firstTime;
+  return $interval->format($differenceFormat);
 
-    // return the difference
-    return $timeDiff;
-  }
-  
+}
+
 //----------------------------------------------------------------------------------------------//
 //------------------------ Registration, LogIn & Forgot Pswd Functions ------------------------//
-  
+
   //Registration into db.
   function enterUserDetails ($fname, $lname, $dob, $gender, $mobile, $email, $id, $user, $pswd) {
 	  $conn = new mysqli(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
@@ -158,7 +155,7 @@ function createTableUserDetails() {
 	  $conn->query($query);
 	  $conn->close();
   }
-  
+
   //To ensure a username isn't entered more than once into a database.
   function checkUsernameExistance($username) {
 	  $conn = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
@@ -174,7 +171,7 @@ function createTableUserDetails() {
 	  mysqli_free_result($result);
 	  mysqli_close($conn);
   }
-  
+
   //Allows the user to login into the service if their account exists.
   function loginScript($user, $pswd) {
 	  $conn = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
@@ -186,7 +183,7 @@ function createTableUserDetails() {
 	  mysqli_free_result($result);
 	  mysqli_close($conn);
   }
-  
+
   //Retrieve the driver id for use in the session variables.
   function getDriverId($user, $pswd) {
 	  $conn = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
@@ -197,11 +194,11 @@ function createTableUserDetails() {
 	  mysqli_free_result($result);
 	  mysqli_close($conn);
   }
-  
+
   //----------------------------------------------------------------------------------------------//
   //-------------------------------- Forgot Password Functions ----------------------------------//
-  
-  //Checks DB for an account with the 
+
+  //Checks DB for an account with the
   function forgotpswd_profileexists($username) {
 	  $conn = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
 	  $query = "SELECT driver_id FROM logbookUsers WHERE username = '$username'";
@@ -216,17 +213,17 @@ function createTableUserDetails() {
 	  mysqli_free_result($result);
 	  mysqli_close($conn);
   }
-  
+
   function resetpassword($username, $password) {
 	  $conn = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
 	  $query = "UPDATE logbookUsers SET password = '$password' WHERE username = '$username'";
 	  $result = mysqli_query($conn, $query);
 	  mysqli_close($conn);
   }
-  
+
   //----------------------------------------------------------------------------------------------//
   //--------------------------------------Account -----------------------------------------------//
-  
+
   //Adds a record for the user if not present.
   function addUpdaterecord($id) {
 	  $conn = mysqli_connect(DB_HOST, DB_USER, DB_PSWD, DB_NAME);

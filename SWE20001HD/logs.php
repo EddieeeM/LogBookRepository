@@ -1,3 +1,16 @@
+<?php
+  //Session Script.
+  session_start();
+  if(!isset($_SESSION["loggedin"])) {
+	  $_SESSION["loggedin"] = false;
+	  $_SESSION["driverId"] = "";
+  }
+  $driverId = $_SESSION["driverId"];
+  $loggedInStatus = $_SESSION["loggedin"];
+  if($loggedInStatus == false) {
+	  header("location:login.php");
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -17,51 +30,39 @@
     </section>
 </div>
 
-<div class="row">
-    <div class="leftside">
-      <!-- Goals for the week can open a text area to list them & have a dropdown to choose the category-->
-      <h2>Goals for the Week:
-        <span>
-            <button value="Edit">Edit Goals</button>
-        </span>
-      </h2>
-
-      <h3>Parking</h3>
-      <div class="graphSecondary" >BarGraph on Progression</div>
-      <ol>
-        <li>Improve on Reverse Parking</li>
-          <ul>
-            <li>Preferrably at a Shopping Centre</li>
-            <li>Reminder - Don't User Reverse Cameras!</li>
-          </ul>
-        <li>Parallel Parking</li>
-        <ul>
-          <li>Preferrably at a Shopping Centre</li>
-        </ul>
-      </ol>
-
-      <h3>Road Rules</h3>
-      <div class="graphSecondary" >BarGraph on Progression</div>
-      <ol>
-        <li>Go Through More Roundabouts</li>
-          <ul>
-            <li>Always remember to let the person/vehicle at the right go first</li>
-            <li>Middle Lane - Straight & Right only, Outer Lane - Straight & Left only</li>
-          </ul>
-        <li>Highway Driving</li>
-        <ul>
-          <li>M1 (Monash Freeway)</li>
-          <li>M3 (Eastlink)</li>
-        </ul>
-      </ol>
-      </br>
-    </div>
-
     <div class="main">
       <h1>MY LOGS</h1>
       <h4>Tracked Hours for the Week</h4>
         <div class="graphSecondary">
-            <p>Insert Graph Here</p>
+          <?php
+          require_once ("settings.php");
+          require_once ("tablefunctions.php");
+          $conn = @mysqli_connect(DB_HOST, DB_USER, DB_PSWD)
+          or die('Failed to connect to server.');
+
+          @mysqli_select_db($conn, DB_NAME)
+          or die('Database not available');
+
+
+          $query = "SELECT SUM(tripTime)/10000 FROM logbookData WHERE driver_id = $driverId";
+          $results = mysqli_query($conn, $query);
+          $queryn = "SELECT SUM(nightTime) FROM logbookData WHERE driver_id = $driverId";
+          $resultsn = mysqli_query($conn, $queryn);
+
+          echo "<table>";
+          echo "<tr><th>Total Hours Driven</th><th>Total Night Hours Driven</th></tr>";
+          $rowt = mysqli_fetch_row($results);
+          $rown = mysqli_fetch_row($resultsn);
+          while ($rowt && $rown)
+          {
+            echo "<tr><td>{$rowt[0]}</td><td>{$rown[0]}</td></tr>";
+            $rowt = mysqli_fetch_row($results);
+            $rown = mysqli_fetch_row($resultsn);
+
+          }
+          echo "</table>";
+
+            ?>
         </div>
       <br>
 
@@ -90,15 +91,10 @@
               </span>
 
               <p>
-                  <label for="DrivingTime">Day or Nightime: </label>
-                  <select name="DrivingTime" id="DrivingTime">
-                    <option value="">Please Select...</option>
-                    <option value="Dawn" name="Dawn" id="Dawn">Dawn</option>
-                    <option value="DayTime" name="DayTime" id="DayTime">Day</option>
-                    <option value="Dusk" name="Dusk" id="Dusk">Dusk</option>
-                    <option value="NightTime" name="NightTime" id="NightTime">Night</option>
-                  </select>
-
+                <span>
+                    <label for="nighttime">Nightime Hours: </label>
+                    <input type="number" name="nighttime" id="nighttime" />
+                </span>
               <span>
                   <label for="startOdometer">Starting Odometer: </label>
                   <input type="text" name="startOdometer" id="startOdometer"/>
@@ -143,72 +139,38 @@
       <fieldset>
         <legend>LOGBOOK HISTORY</legend>
         <div class="graphSecondary">
-            <table>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Time Started</th>
-                  <th>Time Ended</th>
-                  <th>Car Used/Car Rego</th>
-                  <th>Starting Odometer</th>
-                  <th>Ending Odometer</th>
-                  <th>Day or Nightime?</th>
-                  <th>Conditions of the Road</th>
-                </tr>
-              </thead>
-              <tbody>
-                  <tr>
-                      <td>06/05/2019</td>
-                      <td>5:23pm</td>
-                      <td>6:45pm</td>
-                      <td>1TR6XY - Civic</td>
-                      <td>103478</td>
-                      <td>103510</td>
-                      <td>Nighttime</td>
-                      <td>Wet, Heavy Traffic</td>
-                    </tr>
-                    <tr>
-                        <td>05/05/2019</td>
-                        <td>10:41am</td>
-                        <td>12:45pm</td>
-                        <td>1TR6XY - Civic</td>
-                        <td>103358</td>
-                        <td>103450</td>
-                        <td>Daytime</td>
-                        <td>Dry, Light Traffic</td>
-                    </tr>
-                    <tr>
-                        <td>31/04/2019</td>
-                        <td>9:01am</td>
-                        <td>9:42am</td>
-                        <td>8PV9RT - i30</td>
-                        <td>145870</td>
-                        <td>145895</td>
-                        <td>Daytime</td>
-                        <td>Dry, Moderate Traffic</td>
-                    </tr>
-                    <tr>
-                        <td>30/04/2019</td>
-                        <td>8:21pm</td>
-                        <td>9:30pm</td>
-                        <td>1TR6XY - Civic</td>
-                        <td>103208</td>
-                        <td>103239</td>
-                        <td>Nighttime</td>
-                        <td>Wet, Light Traffic</td>
-                    </tr>
-                    <tr>
-                        <td>30/04/2019</td>
-                        <td>4:20pm</td>
-                        <td>5:45pm</td>
-                        <td>1TR6XY - Civic</td>
-                        <td>103189</td>
-                        <td>103208</td>
-                        <td>Dusk</td>
-                        <td>Wet, Moderate Traffic</td>
-                    </tr>
-              </tbody>
-            </table>
+          <?php
+          require_once ("settings.php");
+          require_once ("tablefunctions.php");
+          $conn = @mysqli_connect(DB_HOST, DB_USER, DB_PSWD)
+          or die('Failed to connect to server.');
+
+          @mysqli_select_db($conn, DB_NAME)
+          or die('Database not available');
+
+
+          $query = "SELECT * FROM logbookData WHERE driver_id = $driverId";
+          $results = mysqli_query($conn, $query);
+
+          echo "<table>";
+          echo "<tr><th>Date</th><th>Registration Number</th><th>Start Time</th><th>Finish Time</th><th>Trip Time</th><th>Hours driven at night</th><th>Odometer Start</th><th>Odometer Finish</th><th>Weather Conditions</th><th>Traffic Conditions</th></tr>";
+          $row = mysqli_fetch_row($results);
+          while ($row)
+          {
+            echo "<tr><td>{$row[1]}</td>";
+            echo "<td>{$row[2]}</td>";
+            echo "<td>{$row[3]}</td>";
+            echo "<td>{$row[4]}</td>";
+            echo "<td>{$row[5]}</td>";
+            echo "<td>{$row[6]}</td>";
+            echo "<td>{$row[7]}</td>";
+            echo "<td>{$row[8]}</td>";
+            echo "<td>{$row[9]}</td>";
+            echo "<td>{$row[10]}</td></tr>";
+            $row = mysqli_fetch_row($results);
+          }
+          echo "</table>";
+            ?>
         </div>
       </fieldset>
 
@@ -232,10 +194,10 @@
 
 
 <div class="navbar">
-    <a href="dashboard.html" >My Dashboard</a>
-    <a href="about.html" >About</a>
-    <a href="account.html" >My Account</a>
-    <a href="logs.html" >My Logs</a>
+    <a href="dashboard.php" >My Dashboard</a>
+    <a href="about.php" >About</a>
+    <a href="account.php" >My Account</a>
+    <a href="logs.php" >My Logs</a>
 </div>
 
 

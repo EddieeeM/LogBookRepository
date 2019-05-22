@@ -1,3 +1,16 @@
+<?php
+  //Session Script.
+  session_start();
+  if(!isset($_SESSION["loggedin"])) {
+	  $_SESSION["loggedin"] = false;
+	  $_SESSION["driverId"] = "";
+  }
+  $driverId = $_SESSION["driverId"];
+  $loggedInStatus = $_SESSION["loggedin"];
+  if($loggedInStatus == false) {
+	  header("location:login.php");
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,17 +26,17 @@
 
 <div class="header">
     <section id="logo">
-        <img src="images/logo.jpg" alt="logo" class="vicroads_logo" /> 
+        <img src="images/logo.jpg" alt="logo" class="vicroads_logo" />
     </section>
 </div>
 
 <div class="row">
     <div class="leftside">
       <!-- Goals for the week can open a text area to list them & have a dropdown to choose the category-->
-      <h2>Goals for the Week:  
+      <h2>Goals for the Week:
         <span>
             <button value="Edit">Edit Goals</button>
-        </span> 
+        </span>
       </h2>
 
       <h3>Parking</h3>
@@ -61,19 +74,78 @@
       <h1>DASHBOARD</h1>
       <h4>Tracked Hours for the Week</h4>
         <div class="graphMain">
-            <p>Insert Graph Here</p>
+          <?php
+          require_once ("settings.php");
+          require_once ("tablefunctions.php");
+          $conn = @mysqli_connect(DB_HOST, DB_USER, DB_PSWD)
+          or die('Failed to connect to server.');
+
+          @mysqli_select_db($conn, DB_NAME)
+          or die('Database not available');
+
+
+          $query = "SELECT SUM(tripTime)/10000 FROM logbookData WHERE driver_id = $driverId";
+          $results = mysqli_query($conn, $query);
+          $queryn = "SELECT SUM(nightTime) FROM logbookData WHERE driver_id = $driverId";
+          $resultsn = mysqli_query($conn, $queryn);
+
+          echo "<table>";
+          echo "<tr><th>Total Hours Driven</th><th>Total Night Hours Driven</th></tr>";
+          $rowt = mysqli_fetch_row($results);
+          $rown = mysqli_fetch_row($resultsn);
+          while ($rowt && $rown)
+          {
+            echo "<tr><td>{$rowt[0]}</td><td>{$rown[0]}</td></tr>";
+            $rowt = mysqli_fetch_row($results);
+            $rown = mysqli_fetch_row($resultsn);
+
+          }
+          echo "</table>";
+
+            ?>
         </div>
       <br>
 
       <fieldset>
         <legend>Last 5 Logs</legend>
         <div class="graphSecondary">
-            <p>Insert Last 5 logs</p>
+          <?php
+          require_once ("settings.php");
+          require_once ("tablefunctions.php");
+          $conn = @mysqli_connect(DB_HOST, DB_USER, DB_PSWD)
+          or die('Failed to connect to server.');
+
+          @mysqli_select_db($conn, DB_NAME)
+          or die('Database not available');
+
+
+          $query = "SELECT * FROM logbookData WHERE driver_id = $driverId LIMIT 10";
+          $results = mysqli_query($conn, $query);
+
+          echo "<table>";
+          echo "<tr><th>Date</th><th>Registration Number</th><th>Start Time</th><th>Finish Time</th><th>Trip Time</th><th>Hours driven at night</th><th>Odometer Start</th><th>Odometer Finish</th><th>Weather Conditions</th><th>Traffic Conditions</th></tr>";
+          $row = mysqli_fetch_row($results);
+          while ($row)
+          {
+            echo "<tr><td>{$row[1]}</td>";
+            echo "<td>{$row[2]}</td>";
+            echo "<td>{$row[3]}</td>";
+            echo "<td>{$row[4]}</td>";
+            echo "<td>{$row[5]}</td>";
+            echo "<td>{$row[6]}</td>";
+            echo "<td>{$row[7]}</td>";
+            echo "<td>{$row[8]}</td>";
+            echo "<td>{$row[9]}</td>";
+            echo "<td>{$row[10]}</td></tr>";
+            $row = mysqli_fetch_row($results);
+          }
+          echo "</table>";
+            ?>
         </div>
       </fieldset>
 
       <h2>Latest Instructor Comments/Suggestions</h2>
-      
+
     </div>
 
     <div class="rightside">
