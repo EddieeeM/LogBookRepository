@@ -31,6 +31,7 @@
 </div>
 
     <div class="main">
+	<a href="logout_script.php"><button name="logout">LOGOUT</button></a>
       <h1>MY LOGS</h1>
       <h4>Tracked Hours for the Week</h4>
         <div class="graphSecondary">

@@ -390,6 +390,45 @@ form p {
   background: lightgrey;
 }
 
+/* .graphPassRate{
+  width: 100%;
+  height: 350px;
+  padding: 20px;
+  background: lightgrey;
+  background-image: url("../images/PassRateGraph.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.graphCrashRate{
+  width: 100%;
+  height: 350px;
+  padding: 20px;
+  background: lightgrey;
+  background-image: url("../images/GraphCrashRate.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.graphParkingRate{
+  width: 100%;
+  height: 350px;
+  padding: 20px;
+  background: lightgrey;
+  background-image: url("../images/ProgressionParking.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.tableRoadRules{
+  width: 100%;
+  height: 350px;
+  padding: 20px;
+  background: lightgrey;
+  background-image: url("../images/GraphRoadRules.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+} */
 
 /*--------------------NAVBAR----------------------------------------------------------------*/
 /* Place the navbar at the bottom of the page, and make it stick */
@@ -449,4 +488,40 @@ form p {
       width: 100%;
     }
   }
+  
+  
+  
+  /* 
+  .HondaCivic {
+  background-color: #aaa;
+  border-radius: 10px;
+  width: 100%;
+  height: 250px;
+  padding: 20px;
+  background-image: url("../images/hondaCivic.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
+.Porsche911 {
+  background-color: #aaa;
+  border-radius: 10px;
+  width: 100%;
+  height: 250px;
+  padding: 20px;
+  background-image: url("../images/porsche911.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.NissanNavara {
+  background-color: #aaa;
+  border-radius: 10px;
+  width: 100%;
+  height: 250px;
+  padding: 20px;
+  background-image: url("../images/NissanNavara.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+ */

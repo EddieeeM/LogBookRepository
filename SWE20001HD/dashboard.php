@@ -32,6 +32,7 @@
 
 <div class="row">
     <div class="leftside">
+	<a href="logout_script.php"><button name="logout">LOGOUT</button></a>
       <!-- Goals for the week can open a text area to list them & have a dropdown to choose the category-->
       <h2>Goals for the Week:
         <span>

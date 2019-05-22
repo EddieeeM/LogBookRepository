@@ -22,6 +22,7 @@
 <div class="row">
 
     <div class="leftside">
+	<a href="logout_script.php"><button name="logout">LOGOUT</button></a>
       <h2>Benefits from switching to a digital logbook</h2>
       <div class="graphSecondary">Pass Rate Graph</div>
         <h5>Since 2016, the average pass rate has increased by 45%!</h5>
