@@ -119,7 +119,7 @@
           or die('Database not available');
 
 
-          $query = "SELECT * FROM logbookData WHERE driver_id = $driverId LIMIT 10";
+          $query = "SELECT * FROM logbookData WHERE driver_id = $driverId ORDER BY date DESC LIMIT 5";
           $results = mysqli_query($conn, $query);
 
           echo "<table>";

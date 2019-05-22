@@ -149,7 +149,7 @@
           or die('Database not available');
 
 
-          $query = "SELECT * FROM logbookData WHERE driver_id = $driverId";
+          $query = "SELECT * FROM logbookData WHERE driver_id = $driverId ORDER BY date DESC";
           $results = mysqli_query($conn, $query);
 
           echo "<table>";
