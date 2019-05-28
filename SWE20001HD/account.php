@@ -44,7 +44,7 @@
       </h2>
 
       <h3>Parking</h3>
-      <div class="graphSecondary" >BarGraph on Progression</div>
+      <div class="graphSecondary" ><img src="images/progressionparking.png"></img></div>
       <ol>
         <li>Improve on Reverse Parking</li>
           <ul>
@@ -58,7 +58,7 @@
       </ol>
 
       <h3>Road Rules</h3>
-      <div class="graphSecondary" >BarGraph on Progression</div>
+      <div class="tableRoadRules" ><img src="images/graphroadrules.jpg"></img></div>
       <ol>
         <li>Go Through More Roundabouts</li>
           <ul>
@@ -75,7 +75,7 @@
     </br>
     </div>
 
-<div class="main">
+    <div class="main">
 
     <fieldset>
         <legend>MY ACCOUNT</legend>
@@ -139,7 +139,7 @@
             <span><?php echo $user_postcode; ?></span> 
             &nbsp;
     </fieldset>
-<form method="post" action="account.php">
+    <form method="post" action="account.php">
         
     </br>    
     <fieldset>
@@ -392,16 +392,16 @@
             <button type="submit">Submit</button>
         </fieldset>
     </fieldset>
-</form>
+    </form>
 </div> <!--main end-->
 
     <div class="rightside">
         <h2>Registered Vehicle(s)</h2>
-            <div class="space" >Image</div>
+            <div class="space" ><img src="images/hondacivic.jpg"></img></div>
         </br>
-            <div class="space" >Image</div>
+            <div class="space" ><img src="images/porsche911.jpg"></img></div>
         </br>
-            <div class="space" >Image</div>
+            <div class="space" ><img src="images/nissannavara.jpg"></img></div>
         </br>
     </div>
 

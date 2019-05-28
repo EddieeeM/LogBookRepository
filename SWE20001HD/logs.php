@@ -30,8 +30,23 @@
     </section>
 </div>
 
+<div class="row">
+
+  <div class="leftside">
+  <a href="logout_script.php"><button name="logout">LOGOUT</button></a>
+    <h2>Benefits from switching to a digital logbook</h2>
+    <div class="graphSecondary"><img src = "images/passrategraph.png" ></img></div>
+      <h5>Since 2016, the average pass rate has increased by 45%!</h5>
+      <ul>
+          <li>Learners are more confident coming into the test</li>
+          <li>Studies have shown learners getting through the compulsory 150 hours more diligently</li>
+          <li>Overall crash statistic for red P drivers have decreased by 60%!</li>
+      </ul>
+    <div class="graphSecondaryLogs"><img src = "images/graphcrashrate.png" ></img></div>
+    <br>
+  </div>
+
     <div class="main">
-	<a href="logout_script.php"><button name="logout">LOGOUT</button></a>
       <h1>MY LOGS</h1>
       <h4>Tracked Hours for the Week</h4>
         <div class="graphSecondary">
@@ -108,7 +123,7 @@
 
               </p>
 
-          <div id="Conditions">
+          
           <span>
               <label for="dry">Dry </label>
               <input type="radio" name="weatherConditions" id="dry" value="Dry" />
@@ -129,7 +144,8 @@
               <label for="heavytraffic">Heavy Traffic</label>
               <input type="radio" name="trafficConditions" id="heavytraffic" value="Heavy Traffic" />
           </span>
-          </div>
+          
+        </br>
 
           <button type="submit">Submit</button>
       </br>
@@ -179,20 +195,20 @@
 
 
     </div>
+  
 
     <div class="rightside">
-        <div class="space" >Image</div>
+      <h2>Registered Vehicle(s)</h2>
+        <div class="space" ><img src="images/hondacivic.jpg"></img></div>
       </br>
-        <div class="space" >Image</div>
+        <div class="space" ><img src="images/porsche911.jpg"></img></div>
       </br>
-        <div class="space" >Image</div>
-      </br>
-        <div class="space " >Image</div>
+        <div class="space" ><img src="images/nissannavara.jpg"></img></div>
     </div>
 
   </div>
 
-
+</div>
 
 <div class="navbar">
     <a href="dashboard.php" >My Dashboard</a>

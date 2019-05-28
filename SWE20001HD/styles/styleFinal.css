@@ -20,7 +20,6 @@ body{
 
 fieldset{
   border-color: #000000;
-  padding-right: 2px;
   text-overflow: inherit;
 }
 
@@ -48,14 +47,14 @@ tr:hover {
 .header {
   padding: 0px;
   text-align: center;
-  display: inline-block;
+  display: flex;
   background: limegreen;
   background-image: url("../images/header.png");
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
   height: 300px;
-  width: 1905px;
+  width: 0 0 100%;
 }
 
   /* Column containers */
@@ -66,7 +65,7 @@ tr:hover {
 
 /* Main column */
 .main {
-  flex: 60%;
+  flex: 0 0 50%;
   background-color: green;
   padding: 20px;
 }
@@ -74,13 +73,13 @@ tr:hover {
 /* Create two unequal columns that sits next to each other */
 /* Sidebar/left column */
 .leftside {
-  flex: 20%;
+  flex: 0 0 20%;
   background-color: #f1f1f1;
   padding: 20px;
 }
 
 .rightside {
-  flex: 20%;
+  flex: 0 0 20%;
   background-color: #f1f1f1;
   padding: 20px;
 }
@@ -89,9 +88,17 @@ tr:hover {
 .space {
   background-color: #aaa;
   border-radius: 10px;
-  width: 100%;
-  height: 250px;
+  width: 325px;
+  height: 225px;
   padding: 20px;
+}
+
+.spacePortrait {
+  background-color: #aaa;
+  border-radius: 10px;
+  width: 325px;
+  height: 225px;
+  padding: 22px;
 }
 
 form p {
@@ -385,12 +392,39 @@ form p {
 
 .graphSecondary{
   width: 100%;
-  height: 350px;
+  height: 250px;
+  padding: 20px;
+  background: lightgrey;
+  font-size: 14px;
+}
+
+.graphSecondary table{
+  border: 0.5px solid black;
+  background-color: lightgrey;    
+  color: black;                 
+  font-family: Verdana;
+  resize: both;
+  text-overflow: inherit;
+  text-align: left;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.graphSecondaryDash{
+  width: 100%;
+  height: 275px;
   padding: 20px;
   background: lightgrey;
 }
 
-/* .graphPassRate{
+.graphSecondaryLogs{
+  width: 100%;
+  height: 200px;
+  padding: 20px;
+  background: lightgrey;
+}
+
+ /* .graphPassRate{
   width: 100%;
   height: 350px;
   padding: 20px;
@@ -398,7 +432,7 @@ form p {
   background-image: url("../images/PassRateGraph.png");
   background-repeat: no-repeat;
   background-size: cover;
-}
+} 
 
 .graphCrashRate{
   width: 100%;
@@ -415,20 +449,14 @@ form p {
   height: 350px;
   padding: 20px;
   background: lightgrey;
-  background-image: url("../images/ProgressionParking.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+} */
 
 .tableRoadRules{
   width: 100%;
-  height: 350px;
+  height: 275px;
   padding: 20px;
   background: lightgrey;
-  background-image: url("../images/GraphRoadRules.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-} */
+} 
 
 /*--------------------NAVBAR----------------------------------------------------------------*/
 /* Place the navbar at the bottom of the page, and make it stick */

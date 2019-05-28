@@ -21,18 +21,19 @@
 
 <div class="row">
 
-    <div class="leftside">
-	<a href="logout_script.php"><button name="logout">LOGOUT</button></a>
+  <div class="leftside">
+	  <a href="logout_script.php"><button name="logout">LOGOUT</button></a>
       <h2>Benefits from switching to a digital logbook</h2>
-      <div class="graphSecondary">Pass Rate Graph</div>
+      <div class="graphSecondary"><img src = "images/passrategraph.png" ></img></div>
         <h5>Since 2016, the average pass rate has increased by 45%!</h5>
         <ul>
             <li>Learners are more confident coming into the test</li>
             <li>Studies have shown learners getting through the compulsory 150 hours more diligently</li>
             <li>Overall crash statistic for red P drivers have decreased by 60%!</li>
         </ul>
-      <div class="graphSecondary">Crash Rate Graph</div> <br>
-    </div>
+      <div class="graphSecondary"><img src = "images/graphcrashrate.png" ></img></div>
+      <br>
+  </div>
 
     <div class="main">
       <h1>ABOUT</h1>
@@ -91,25 +92,28 @@
     <div class="rightside">
         <article id="customer_reviews">
             <h3>Previous Learner Driver's and Instructor's Reviews</h3>
-            <ol>
-              <li><strong>Matt (Former Learner Driver):</strong>
-                <div class="space" >Image</div>
+            
+              <strong>Matt (Former Learner Driver):</strong>
+                <div class="spacePortrait"><img src="images/matt.jpg"></img></div>
                 Seeing how to old logbook system worked, 
                 i was worried that i will take forever to finish getting through my learners 
                 being the forgetful person i am at writing things into a logbook. 
-                <br />
+                
                 Having the requirement to use this while driving makes me feel like i am actually 
                 progressing through my learners in a formal manner.
-              </li>
-              <li><strong>Jinho (Instructor at Road2P's):</strong> 
-                <div class="space" >Image</div>
+              
+        </br>
+        </br>
+              
+              <strong>Dave (Instructor at Road2P's):</strong> 
+                <div class="spacePortrait" ><img src="images/dave.jpg"></img></div>
                 One word: Efficient; VicRoads have done an excellent job 
                 at making a digital logbook. This will hopefully prepare more people for solo driving as
                 it prevents them from cheating like in the old system.
-                <br />
+                
                 Minor improvements can be placed but overall a solid tool for new drivers and their instructors.
-              </li>
-            </ol>
+              
+            
         </article >
     </div>
 
