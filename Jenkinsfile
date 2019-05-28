@@ -1,10 +1,17 @@
-pipeline {
-    agent { docker { image 'maven:3.3.3' } }
-    stages {
-        stage('build') {
-            steps {
-                sh 'mvn --version'
-            }
-        }
+<?php
+  //use PHPUnit\Framework\TestCase;
+  //\PHPUnit_Framework_TestCase
+
+  class SampleTest extends \PHPUnit_Framework_TestCase
+  {
+    public function testTrueAssertsToTrue()
+    {
+      $this->assertTrue(true);
     }
-}
+
+    public function testFalseAssertsToFalse()
+    {
+      $this->assertFalse(false);
+    }
+  }
+ ?>
