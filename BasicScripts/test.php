@@ -1,4 +1,4 @@
-
+//Test for database functions
 <?php
   require_once("tablefunctions.php");
   
