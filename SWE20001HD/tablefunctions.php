@@ -67,6 +67,32 @@ function existsUserDetailsUpdate() {
 	$conn->close();
 }
 
+function existsInstructorDetails() {
+	$conn = new mysqli(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
+	$query = "SELECT 1 FROM instructors";
+	$existsUpdate = $conn->query($query);
+	if($existsUpdate) {
+		return true;
+	}
+	else {
+		return false;
+	}
+	$conn->close();
+}
+
+function existsCarDetails() {
+	$conn = new mysqli(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
+	$query = "SELECT 1 FROM viccars";
+	$existsUpdate = $conn->query($query);
+	if($existsUpdate) {
+		return true;
+	}
+	else {
+		return false;
+	}
+	$conn->close();
+}
+
 //Creation of the User's Profile.
 function createTableUserDetails() {
   $conn = new mysqli(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
@@ -85,12 +111,37 @@ function createTableUserDetails() {
     echo "<p>Done</p>";
   }
 
+  function createTableInstructorDetails() {
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
+    $tableContents = "CREATE TABLE instructors (
+        driver_id INT,
+        fname VARCHAR(40),
+        lname VARCHAR(40),
+        email VARCHAR(40))";
+      $conn->query($tableContents);
+      $conn->close();
+      echo "<p>Done</p>";
+    }
+
+    function createTableCarDetails() {
+      $conn = new mysqli(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
+      $tableContents = "CREATE TABLE viccars (
+          driver_id INT,
+          make VARCHAR(40),
+          model VARCHAR(40),
+          year INT,
+          transmission VARCHAR(20))";
+        $conn->query($tableContents);
+        $conn->close();
+        echo "<p>Done</p>";
+      }
+
   //Creation of a user's personal log table.
   function createTableLogData() {
     //Want to have user id passed into this function for table name creation.
     $conn = new mysqli(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
     $tableContents = "CREATE TABLE logbookData (
-	    driver_id INT,
+	    driver_id INT PRIMARY KEY,
       date VARCHAR(10),
       registrationNumber VARCHAR(10),
       startTime TIME,
@@ -154,6 +205,22 @@ function dateDifference($date_1 , $date_2 , $differenceFormat = '%h:%m:%s' )
 	            VALUES ('$id', '$fname', '$lname', '$dob', '$gender', '$email', '$mobile', '$user', '$pswd')";
 	  $conn->query($query);
 	  $conn->close();
+  }
+
+  function enterInstructorDetails ($stuid, $fname, $lname, $email) {
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
+    $query = "INSERT INTO instructors (driver_id, fname, lname, email)
+              VALUES ('$stuid', '$fname', '$lname', '$email')";
+    $conn->query($query);
+    $conn->close();
+  }
+
+  function enterCarDetails ($make, $model, $year, $id, $transmission) {
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PSWD, DB_NAME);
+    $query = "INSERT INTO viccars (driver_id, make, model, year, transmission)
+              VALUES ('$id', '$make', '$model', '$year', '$transmission')";
+    $conn->query($query);
+    $conn->close();
   }
 
   //To ensure a username isn't entered more than once into a database.
