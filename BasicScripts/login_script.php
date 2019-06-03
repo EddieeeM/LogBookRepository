@@ -4,6 +4,7 @@
   //Initialize a session.
   session_start();
   //checking CI
+//test
   //Check for already logged in.
   if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 	  header("location: dashboard.php");
