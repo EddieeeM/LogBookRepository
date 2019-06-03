@@ -1,0 +1,12 @@
+npm install uilicious-cli -g
+
+//Tests run on the Desktop
+
+uilicious-windows.exe run "LogBookProject" "Iteration 1" -u eamonserrate@gmail.com -p 3@mmm2001966
+// uilicious-cli run "Logbook Project" "Iteration 1" -u eamonserrate@gmail.com -p 3@mmm2001966 for Jenkins
+
+uilicious-windows.exe run "LogBookProject" "Iteration 2" -u eamonserrate@gmail.com -p 3@mmm2001966
+// uilicious-cli run "Logbook Project" "Iteration 2" -u eamonserrate@gmail.com -p 3@mmm2001966 for Jenkins
+
+uilicious-windows.exe run "LogBookProject" "Iteration 3" -u eamonserrate@gmail.com -p 3@mmm2001966
+// uilicious-cli run "Logbook Project" "Iteration 3" -u eamonserrate@gmail.com -p 3@mmm2001966 for Jenkins
