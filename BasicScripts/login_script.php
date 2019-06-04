@@ -6,6 +6,7 @@
   //checking CI
 //test
 //test2
+//test for mohan
   //Check for already logged in.
   if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true) {
 	  header("location: dashboard.php");
